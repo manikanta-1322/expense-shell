@@ -1,13 +1,16 @@
-dnf install nginx -y
+log_file = "/tmp/expense.log"
+color = "\e[33m"
 
-cp expense.conf /etc/nginx/default.d/expense.conf
+dnf install nginx -y &>>log_file
 
-rm -rf /usr/share/nginx/html/*
+cp expense.conf /etc/nginx/default.d/expense.conf &>>log_file
 
-curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip
+rm -rf /usr/share/nginx/html/* &>>log_file
 
-cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
+curl -o /tmp/frontend.zip https://expense-artifacts.s3.amazonaws.com/frontend.zip &>>log_file
 
-systemctl enable nginx
-systemctl start nginx
+cd /usr/share/nginx/html &>>log_file
+unzip /tmp/frontend.zip &>>log_file
+
+systemctl enable nginx &>>log_file
+systemctl start nginx &>>log_file
