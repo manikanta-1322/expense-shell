@@ -1,9 +1,10 @@
-log_file = "/tmp/expense.log"
+log_file="/tmp/expense.log"
 
 
 echo -e "\e[36m Installing ngInx \e[0m"
 dnf install nginx -y &>>$log_file
 
+echo -e "\e[36m Installing ngInx \e[0m"
 cp expense.conf /etc/nginx/default.d/expense.conf &>>$log_file
 
 rm -rf /usr/share/nginx/html/* &>>$log_file
