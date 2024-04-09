@@ -7,6 +7,7 @@ if [ -z "$1" ]; then
   Password is invalid in script
   exit
 fi
+
 echo -e "${color} Disable nodejs default version \e[0m"
 dnf module disable nodejs -y &>>$log_file
 if [ $? -eq 0 ]; then
@@ -39,16 +40,27 @@ else
   echo -e "\e[31m FAILURE \e[0m"
 fi
 
-echo -e "${color} Add application user \e[0m"
-useradd expense &>>$log_file
+id expense &>>$log_file
+if [ $? -ne 0 ]; then
+  echo -e "${color} Add application user \e[0m"
+  useradd expense &>>$log_file
+  if [ $? -eq 0 ]; then
+    echo -e "\e[32m SUCCESS \e[0m"
+  else
+    echo -e "\e[31m FAILURE \e[0m"
+  fi
+fi
+
+echo -e "${color} Create application directory \e[0m"
+mkdir /app &>>$log_file
 if [ $? -eq 0 ]; then
   echo -e "\e[32m SUCCESS \e[0m"
 else
   echo -e "\e[31m FAILURE \e[0m"
 fi
 
-echo -e "${color} Create application directory \e[0m"
-mkdir /app &>>$log_file
+echo -e "${color} Delete old content \e[0m"
+rm -rf /app/* $>>$log_file
 if [ $? -eq 0 ]; then
   echo -e "\e[32m SUCCESS \e[0m"
 else
