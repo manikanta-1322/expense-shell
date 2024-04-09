@@ -39,7 +39,7 @@ if [ $? -ne 0 ]; then
   status_check
 fi
 
-if [ ! -d /app]; then
+if [ ! -d /app ]; then
   echo -e "${color} Create application directory \e[0m"
   mkdir /app &>>$log_file
   status_check
