@@ -4,7 +4,7 @@ color="\e[33m"
 MYSQL_ROOT_PASSWORD=$1
 
 if [ -z "$1" ]; then
-  echo Password is invalid in script
+  echo Password is Missing
   exit
 fi
 
