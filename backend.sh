@@ -51,12 +51,14 @@ if [ $? -ne 0 ]; then
   fi
 fi
 
-echo -e "${color} Create application directory \e[0m"
-mkdir /app &>>$log_file
-if [ $? -eq 0 ]; then
-  echo -e "\e[32m SUCCESS \e[0m"
-else
-  echo -e "\e[31m FAILURE \e[0m"
+if [ ! -d /app]; then
+  echo -e "${color} Create application directory \e[0m"
+  mkdir /app &>>$log_file
+  if [ $? -eq 0 ]; then
+    echo -e "\e[32m SUCCESS \e[0m"
+  else
+    echo -e "\e[31m FAILURE \e[0m"
+  fi
 fi
 
 echo -e "${color} Delete old content \e[0m"
@@ -95,7 +97,7 @@ fi
 
 echo -e "${color} Install mySql to load schema \e[0m"
 dnf install mysql -y &>>$log_file
-mysql -h mysql-dev.manireddy.online -uroot -p{MYSQL_ROOT_PASSWORD} < /app/schema/backend.sql &>>$log_file
+mysql -h mysql-dev.manireddy.online -uroot -p${MYSQL_ROOT_PASSWORD} < /app/schema/backend.sql &>>$log_file
 if [ $? -eq 0 ]; then
   echo -e "\e[32m SUCCESS \e[0m"
 else
