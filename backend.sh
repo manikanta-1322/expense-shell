@@ -5,6 +5,7 @@ MYSQL_ROOT_PASSWORD=$1
 
 if [ -z "$1" ]; then
   Password is invalid in script
+  exit
 fi
 echo -e "${color} Disable nodejs default version \e[0m"
 dnf module disable nodejs -y &>>$log_file
